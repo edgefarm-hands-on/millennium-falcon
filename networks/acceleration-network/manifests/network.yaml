@@ -16,14 +16,14 @@ spec:
         permissions:
           pub:
             allow:
-            - ".accel"
+            - "*.accel"
             - "$JS.API.CONSUMER.>"
             - "$JS.ACK.>"
             deny: []
             
           sub:
             allow:
-            - ".accel"
+            - "*.accel"
             deny: []
             
     subNetworks:
