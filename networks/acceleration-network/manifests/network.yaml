@@ -16,7 +16,7 @@ spec:
         permissions:
           pub:
             allow:
-            - ".accel"
+            - "*.accel"
             - "$JS.API.CONSUMER.>"
             - "$JS.ACK.>"
             deny: []
