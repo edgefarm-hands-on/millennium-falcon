@@ -17,6 +17,8 @@ spec:
           pub:
             allow:
             - ".accel"
+            - "$JS.API.CONSUMER.>"
+            - "$JS.ACK.>"
             deny: []
             
           sub:
