@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: "acceleration-app"
+  annotations:
+    'edgefarm.io/cluster': default
+  links:
+    - url: https://www.ci4rail.com
+      title: Ci4Rail Website
+      icon: backstage
+spec:
+  type: application
+  owner: default/KlausPopp
+  lifecycle: production
+  system: system:default/millennium-falcon
