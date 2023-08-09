@@ -1,0 +1,72 @@
+apiVersion: streams.network.edgefarm.io/v1alpha1
+kind: Network
+metadata:
+  name: acceleration-network
+  
+spec:
+  compositeDeletePolicy: Foreground
+  parameters:
+    users:
+    
+      - name: publish
+        limits:
+          payload: -1
+          data: -1
+          subscriptions: -1
+        permissions:
+          pub:
+            allow:
+            - ".accel"
+            deny: []
+            
+          sub:
+            allow:
+            - ".accel"
+            deny: []
+            
+    subNetworks:
+      - name: edge-to-cloud
+        limits:
+          fileStorage: 1G
+          inMemoryStorage: 100M
+        tolerations: []
+        nodepoolSelector:
+          matchExpressions:
+            - key: "accel-demo-edge-2"
+              operator: Exists
+            
+    streams:
+    
+      - name: acceleration-stream
+        type: Standard
+        subNetworkRef: edge-to-cloud
+        config:
+          subjects:
+          - "accel"
+          
+          discard: Old
+          retention: Limits
+          storage: File
+          maxConsumers: -1
+          maxMsgSize: -1
+          maxMsgs: -1
+          maxMsgsPerSubject: -1
+          maxBytes: 10000000
+        
+    
+      - name: aggregate-stream
+        type: Aggregate
+        
+        config:
+          
+          discard: Old
+          retention: Limits
+          storage: File
+          maxConsumers: -1
+          maxMsgSize: -1
+          maxMsgs: -1
+          maxMsgsPerSubject: -1
+          maxBytes: 500000000
+        references:
+        - acceleration-stream
+    
